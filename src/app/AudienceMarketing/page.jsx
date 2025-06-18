@@ -6,7 +6,26 @@ import Head from "next/head";
 import Lownav from "../../components/Lownav";
 import Upnav from "../../components/Upnav";
 import Footer from "../../components/Footer";
-
+import { 
+  Lightbulb, 
+  BarChart3, 
+  Target, 
+  TrendingUp, 
+  Zap, 
+  Shield,
+  Brain,
+  Rocket,
+  Users,
+  Globe,
+  Database,
+  Settings,
+  BarChart,
+  Eye,
+  Heart,
+  Briefcase,
+  CheckCircle,
+  Star
+} from 'lucide-react';
 const Marketing = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -182,95 +201,75 @@ const Marketing = () => {
   ];
 
   // Topics for marketing
-  const topics = [
+ const topics = [
     {
-      name: "customer acquisition",
-      size: "text-5xl",
-      weight: "font-bold",
-      top: "30%",
-      left: "30%",
+      name: "Customer Acquisition",
       opacity: 1,
+      size: "text-sm",
+      weight: "font-semibold",
     },
     {
-      name: "content performance",
-      size: "text-2xl",
-      weight: "font-medium",
-      top: "15%",
-      left: "10%",
-      opacity: 0.8,
-    },
-    {
-      name: "brand awareness",
-      size: "text-3xl",
-      weight: "font-bold",
-      top: "20%",
-      left: "60%",
+      name: "Content Performance",
       opacity: 0.9,
-    },
-    {
-      name: "conversion optimization",
-      size: "text-2xl",
+      size: "text-xs",
       weight: "font-medium",
-      top: "50%",
-      left: "5%",
-      opacity: 0.7,
     },
     {
-      name: "lead generation",
-      size: "text-xl",
+      name: "Brand Awareness",
+      opacity: 1,
+      size: "text-sm",
       weight: "font-bold",
-      top: "65%",
-      left: "20%",
+    },
+    {
+      name: "Conversion Optimization",
       opacity: 0.8,
-    },
-    {
-      name: "marketing automation",
-      size: "text-lg",
+      size: "text-xs",
       weight: "font-medium",
-      top: "70%",
-      left: "45%",
-      opacity: 0.7,
     },
     {
-      name: "customer journey",
-      size: "text-2xl",
-      weight: "font-bold",
-      top: "10%",
-      left: "40%",
+      name: "Lead Generation",
+      opacity: 1,
+      size: "text-sm",
+      weight: "font-semibold",
+    },
+    {
+      name: "Market Automation",
       opacity: 0.9,
+      size: "text-xs",
+      weight: "font-medium",
     },
     {
-      name: "omnichannel strategy",
-      size: "text-xl",
-      weight: "font-medium",
-      top: "40%",
-      left: "65%",
+      name: "Customer Journey",
       opacity: 0.8,
-    },
-    {
-      name: "attribution modeling",
-      size: "text-xl",
+      size: "text-xs",
       weight: "font-medium",
-      top: "55%",
-      left: "45%",
-      opacity: 0.8,
     },
+    { name: "Automation", opacity: 1, size: "text-sm", weight: "font-bold" },
     {
-      name: "campaign performance",
-      size: "text-lg",
-      weight: "font-bold",
-      top: "25%",
-      left: "70%",
-      opacity: 0.7,
-    },
-    {
-      name: "personalization",
-      size: "text-xl",
-      weight: "font-medium",
-      top: "60%",
-      left: "10%",
+      name: "Attribution Modelling",
       opacity: 0.9,
+      size: "text-sm",
+      weight: "font-semibold",
     },
+    {
+      name: "Personalization",
+      opacity: 0.8,
+      size: "text-xs",
+      weight: "font-medium",
+    },
+    { name: "Innovation", opacity: 1, size: "text-sm", weight: "font-bold" },
+    {
+      name: "Campaign Performance",
+      opacity: 0.9,
+      size: "text-xs",
+      weight: "font-medium",
+    },
+  ];
+ 
+  
+  const icons = [
+    Brain, Rocket, Users, Globe, Database, Settings, 
+    BarChart, Eye, Heart, Briefcase, CheckCircle, Star
   ];
 
   return (
@@ -606,95 +605,307 @@ const Marketing = () => {
         </section>
 
         {/* Topics Researched Section */}
-        <section className="bg-[#0E1F1C] text-white py-16 px-4 md:px-8 lg:px-16">
-          <div className="container mx-auto">
-            <div className="flex flex-col lg:flex-row items-start">
-              <motion.div
-                className="w-full lg:w-2/3 mb-8 lg:mb-0"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-              >
-                <div className="relative h-64 md:h-96">
-                  {topics.map((topic, index) => (
+      <section className="relative bg-[#0E1F1C] text-white py-20 px-4 md:px-8 lg:px-16 overflow-hidden">
+                <div className="container mx-auto relative z-10">
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-center">
+                    {/* Enhanced Left Content - Interactive Cloud */}
                     <motion.div
-                      key={index}
-                      className={`absolute ${topic.size} ${topic.weight}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: topic.opacity }}
-                      transition={{ delay: index * 0.1, duration: 0.5 }}
-                      style={{
-                        top: topic.top,
-                        left: topic.left,
+                      className="relative"
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      variants={{
+                        hidden: {},
+                        visible: {
+                          transition: { staggerChildren: 0.08 },
+                        },
                       }}
                     >
-                      {topic.name}
+                      {/* Central Hub */}
+                      {/* Responsive Central Hub */}
+                      <motion.div
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+                   w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 
+                   bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 
+                   rounded-full shadow-2xl z-20 flex items-center justify-center"
+                        initial={{ scale: 0, rotate: -180 }}
+                        whileInView={{ scale: 1, rotate: 0 }}
+                        transition={{ duration: 1, ease: "backOut" }}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <Lightbulb className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white" />
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 animate-pulse opacity-30"></div>
+                      </motion.div>
+      
+                      {/* Orbiting Topic Cards - Properly Organized with Continuous Heartbeat */}
+                      <div className="relative w-full overflow-visible">
+                        <div className="relative mx-auto w-full overflow-visible flex justify-center items-center py-8 sm:py-12">
+                          {/* Responsive container with viewport-based sizing */}
+                          <div className="relative w-[20rem] h-[20rem] xs:w-[24rem] xs:h-[24rem] sm:w-[28rem] sm:h-[28rem] md:w-[32rem] md:h-[32rem] lg:w-[36rem] lg:h-[36rem] xl:w-[40rem] xl:h-[40rem] 2xl:w-[48rem] 2xl:h-[48rem]">
+                            {topics.map((topic, index) => {
+                              const Icon = icons[index % icons.length];
+                              // Adjust radius based on screen size
+                              const radius = `calc(min(20vw, 12rem) + ${
+                                index % 2 === 0 ? "0px" : "2rem"
+                              })`;
+                              const angle = (index * 360) / topics.length;
+                              const x = `calc(cos(${angle}deg) * ${radius})`;
+                              const y = `calc(sin(${angle}deg) * ${radius})`;
+      
+                              return (
+                                <motion.div
+                                  key={index}
+                                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                  style={{
+                                    // Use CSS variables for dynamic positioning
+                                    "--x": x,
+                                    "--y": y,
+                                    "--radius": radius,
+                                  }}
+                                  initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                                  whileInView={{
+                                    opacity: topic.opacity,
+                                    scale: 1,
+                                    x: "var(--x)",
+                                    y: "var(--y)",
+                                  }}
+                                  transition={{
+                                    duration: 0.8,
+                                    delay: index * 0.1,
+                                    type: "spring",
+                                    stiffness: 100,
+                                    scale: {
+                                      duration: 2,
+                                      repeat: Infinity,
+                                      repeatType: "loop",
+                                      ease: "easeInOut",
+                                      delay: index * 0.15,
+                                    },
+                                  }}
+                                  animate={{ scale: [1, 1.12, 1] }}
+                                  whileHover={{
+                                    scale: 1.2,
+                                    zIndex: 30,
+                                    boxShadow:
+                                      "0 20px 40px rgba(255, 255, 255, 0.15)",
+                                  }}
+                                >
+                                  <div className="relative group cursor-pointer">
+                                    {/* Connection Line - now responsive */}
+                                    <motion.div
+                                      className="absolute top-1/2 left-1/2 w-px bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent origin-left transform -translate-y-1/2"
+                                      style={{
+                                        width: "var(--radius)",
+                                        transform: `translate(-50%, -50%) rotate(${
+                                          angle + 180
+                                        }deg)`,
+                                      }}
+                                      initial={{ scaleX: 0 }}
+                                      whileInView={{ scaleX: 1 }}
+                                      transition={{
+                                        duration: 1,
+                                        delay: index * 0.05,
+                                      }}
+                                    />
+      
+                                    {/* Topic Card - made more compact on small screens */}
+                                    <motion.div
+                                      className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-2 sm:p-3 shadow-xl group-hover:bg-white/20 group-hover:border-yellow-400/50 transition-all duration-300"
+                                      animate={{
+                                        boxShadow: [
+                                          "0 0 0 0 rgba(251, 191, 36, 0)",
+                                          "0 0 0 8px rgba(251, 191, 36, 0.1)",
+                                          "0 0 0 0 rgba(251, 191, 36, 0)",
+                                        ],
+                                        borderColor: [
+                                          "rgba(255, 255, 255, 0.2)",
+                                          "rgba(251, 191, 36, 0.4)",
+                                          "rgba(255, 255, 255, 0.2)",
+                                        ],
+                                      }}
+                                      transition={{
+                                        duration: 2.5,
+                                        repeat: Infinity,
+                                        repeatType: "loop",
+                                        ease: "easeInOut",
+                                        delay: index * 0.2,
+                                      }}
+                                    >
+                                      <div className="flex items-center space-x-1 sm:space-x-2">
+                                        <motion.div
+                                          className="text-yellow-300 group-hover:text-yellow-200 transition-colors"
+                                          animate={{
+                                            color: [
+                                              "rgb(253, 224, 71)",
+                                              "rgb(251, 191, 36)",
+                                              "rgb(253, 224, 71)",
+                                            ],
+                                          }}
+                                          transition={{
+                                            duration: 2,
+                                            repeat: Infinity,
+                                            repeatType: "loop",
+                                            ease: "easeInOut",
+                                            delay: index * 0.1,
+                                          }}
+                                        >
+                                          <Icon className="w-3 h-3 sm:w-4 sm:h-4" />
+                                        </motion.div>
+                                        <div
+                                          className={`text-sm sm:text-base ${topic.weight} text-white group-hover:text-yellow-100 transition-colors whitespace-nowrap`}
+                                        >
+                                          {topic.name}
+                                        </div>
+                                      </div>
+      
+                                      {/* Continuous Glow */}
+                                      <motion.div
+                                        className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400/0 via-yellow-400/20 to-yellow-400/0"
+                                        animate={{ opacity: [0, 0.3, 0] }}
+                                        transition={{
+                                          duration: 3,
+                                          repeat: Infinity,
+                                          repeatType: "loop",
+                                          ease: "easeInOut",
+                                          delay: index * 0.25,
+                                        }}
+                                      />
+                                    </motion.div>
+                                  </div>
+                                </motion.div>
+                              );
+                            })}
+      
+                            {/* Responsive Pulse Rings */}
+                            {[...Array(3)].map((_, i) => (
+                              <motion.div
+                                key={i}
+                                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-yellow-400/20 rounded-full"
+                                style={{
+                                  width: `calc(${8 + i * 4}rem)`,
+                                  height: `calc(${8 + i * 4}rem)`,
+                                }}
+                                animate={{
+                                  scale: [1, 1.1, 1],
+                                  opacity: [0.3, 0.1, 0.3],
+                                }}
+                                transition={{
+                                  duration: 3,
+                                  repeat: Infinity,
+                                  delay: i * 0.5,
+                                }}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="w-full lg:w-1/3"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeInUp}
-              >
-                <div className="flex items-center mb-4">
-                  <div className="bg-yellow-400 p-2 rounded-full mr-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-black"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 6h16M4 12h16M4 18h16"
-                      />
-                    </svg>
-                  </div>
-                  <span className="text-3xl font-bold">42,300</span>
-                </div>
-                <h2 className="text-5xl font-bold mb-6">
-                  Marketing Topics
-                  <br />
-                  Researched
-                </h2>
-                <p className="mb-8">
-                  We analyze engagement patterns to identify emerging trends,
+        
+                      {/* Enhanced Right Content */}
+                      <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                        className="space-y-8"
+                      >
+                        {/* Stats Badge */}
+                        <motion.div
+                          className="inline-flex items-center bg-gradient-to-r from-yellow-400/20 to-orange-400/20 backdrop-blur-md border border-yellow-400/30 rounded-full px-6 py-3"
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        >
+                          <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-2 rounded-full mr-4">
+                            <BarChart3 className="h-5 w-5 text-black" />
+                          </div>
+                          <motion.span
+                            className="text-3xl font-bold bg-yellow-400 bg-clip-text text-transparent"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ duration: 1, delay: 0.5 }}
+                          >
+                            42,300+
+                          </motion.span>
+                        </motion.div>
+        
+                        {/* Main Heading */}
+                        <div className="space-y-4">
+                          <motion.h2
+                            className="text-3xl lg:text-4xl font-bold leading-none"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                          >
+                            <span className="bg-yellow-400 bg-clip-text text-transparent">
+                             Marketing Topics
+                            </span>
+                            <br />
+                            <span className="bg-yellow-400 bg-clip-text text-transparent">
+                              Researched
+                            </span>
+                          </motion.h2>
+        
+                          {/* Accent Line */}
+                          <motion.div
+                            className="w-24 h-1 bg-yellow-400 rounded-full"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: 96 }}
+                            transition={{ duration: 1, delay: 0.6 }}
+                          />
+                        </div>
+        
+                        {/* Enhanced Description */}
+                        <motion.div
+                          className="space-y-6"
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.8, delay: 0.7 }}
+                        >
+                          <p className="text-lg text-white/90 leading-relaxed">
+                            We analyze{" "}
+                            <strong className="text-yellow-400">
+                               engagement patterns
+                            </strong>{" "}
+                           to identify emerging trends,
                   persistent challenges, and the most critical needs of marketing teams.
-                  These insights help you create campaigns that truly resonate.
-                </p>
-                <button
-                  className="fixed bottom-8 right-8 bg-yellow-400 text-black p-4 rounded-full shadow-lg hover:bg-yellow-300 transition duration-300 z-50"
-                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  aria-label="Scroll to top"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 15l7-7 7 7"
-                    />
-                  </svg>
-                </button>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+                          </p>
+        
+                          <p className="text-lg text-white/70 leading-relaxed">
+                             These insights help you create{" "}
+                            <strong className="text-white">better campaigns</strong>{" "}
+                           campaigns that truly resonate.
+                          </p>
+        
+                          {/* Feature Points */}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                            {[
+                              { icon: Target, text: "Omnichannel Stratedy" },
+                              { icon: TrendingUp, text: "Attribution Modelling" },
+                              { icon: Zap, text: "Campaign Performance" },
+                              { icon: Shield, text: "Personalization" },
+                            ].map((feature, index) => (
+                              <motion.div
+                                key={index}
+                                className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-yellow-400/30 transition-all duration-300"
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                                whileHover={{ scale: 1.02 }}
+                              >
+                                <div className="text-yellow-400">
+                                  <feature.icon className="w-5 h-5" />
+                                </div>
+                                <span className="text-white/80 font-medium">
+                                  {feature.text}
+                                </span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      </motion.div>
+                    </div>
+                  </div>
+                </section> 
 
         {/* Newsletter Section */}
         <section className="bg-[#0E1F1C] text-white py-16 px-4 md:px-8 lg:px-16">
@@ -731,7 +942,7 @@ const Marketing = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Business Email"
-                      className="flex-grow px-4 py-2 mb-2 sm:mb-0 sm:mr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 text-black focus:ring-yellow-400"
+                      className="flex-grow px-4 py-2 mb-2 sm:mb-0 sm:mr-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 bg-white text-black focus:ring-yellow-400"
                       required
                     />
                     <button

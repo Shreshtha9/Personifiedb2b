@@ -1,11 +1,17 @@
-"use client"; 
+"use client";
 import { motion } from "framer-motion";
-import { ArrowUpRight , Plus} from "lucide-react";
-import Lownav from "../../components/Lownav";
-import Upnav from "../../components/Upnav";
-import Footer from "../../components/Footer";
+import { ArrowUpRight, Plus } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image"; // Import Next.js Image component
+import Head from "next/head"; // Import Next.js Head component
+import Link from "next/link"; // Import Next.js Link component for client-side navigation
+
+import dynamic from "next/dynamic"; // Import dynamic for code splitting
+
+// Lazily load navigation and footer components for code splitting
+const Lownav = dynamic(() => import("../../components/Lownav"), { ssr: false });
+const Upnav = dynamic(() => import("../../components/Upnav"), { ssr: false });
+const Footer = dynamic(() => import("../../components/Footer"), { ssr: false });
 
 
 function SalesDevelopment() {
@@ -32,38 +38,73 @@ function SalesDevelopment() {
 
   const faqItems = [
     {
-      question: 'What is sales development and how does it differ from traditional sales?',
-      answer: 'Sales development focuses on identifying and qualifying leads before passing them to account executives. Unlike traditional sales which handles the entire sales cycle, SDRs specialize in the early stages of prospecting and outreach to build a healthy pipeline.'
+      question:
+        "What is sales development and how does it differ from traditional sales?",
+      answer:
+        "Sales development focuses on identifying and qualifying leads before passing them to account executives. Unlike traditional sales which handles the entire sales cycle, SDRs specialize in the early stages of prospecting and outreach to build a healthy pipeline.",
     },
     {
-      question: 'What tools and technologies are essential for an effective sales development team?',
-      answer: 'Key tools include CRM platforms (like Salesforce), sales engagement platforms (like Outreach or SalesLoft), prospecting tools (like LinkedIn Sales Navigator), email verification tools, and conversation intelligence software to analyze calls and improve techniques.'
+      question:
+        "What tools and technologies are essential for an effective sales development team?",
+      answer:
+        "Key tools include CRM platforms (like Salesforce), sales engagement platforms (like Outreach or SalesLoft), prospecting tools (like LinkedIn Sales Navigator), email verification tools, and conversation intelligence software to analyze calls and improve techniques.",
     },
     {
-      question: 'How can we measure the success of our sales development efforts?',
-      answer: 'Important metrics include number of qualified leads generated, outreach activity rates (calls, emails), response rates, meeting-to-opportunity conversion rates, and pipeline contribution. Tracking these helps optimize your SDR team\'s performance.'
+      question:
+        "How can we measure the success of our sales development efforts?",
+      answer:
+        "Important metrics include number of qualified leads generated, outreach activity rates (calls, emails), response rates, meeting-to-opportunity conversion rates, and pipeline contribution. Tracking these helps optimize your SDR team's performance.",
     },
     {
-      question: 'What makes an effective sales development representative (SDR)?',
-      answer: 'Top SDRs combine persistence with emotional intelligence. They need excellent communication skills, the ability to research prospects thoroughly, resilience to handle rejection, and the capacity to quickly understand customer pain points and position solutions accordingly.'
+      question: "What makes an effective sales development representative (SDR)?",
+      answer:
+        "Top SDRs combine persistence with emotional intelligence. They need excellent communication skills, the ability to research prospects thoroughly, resilience to handle rejection, and the capacity to quickly understand customer pain points and position solutions accordingly.",
     },
     {
-      question: 'How should sales development align with marketing for maximum impact?',
-      answer: 'Close alignment ensures SDRs follow up on marketing-generated leads promptly. Shared metrics, regular communication between teams, and coordinated messaging based on campaign themes are crucial. Marketing should provide SDRs with relevant content and talking points for outreach.'
+      question:
+        "How should sales development align with marketing for maximum impact?",
+      answer:
+        "Close alignment ensures SDRs follow up on marketing-generated leads promptly. Shared metrics, regular communication between teams, and coordinated messaging based on campaign themes are crucial. Marketing should provide SDRs with relevant content and talking points for outreach.",
     },
     {
-      question: 'What outreach strategies work best in today\'s sales development environment?',
-      answer: 'Multi-channel approaches combining personalized email, LinkedIn messages, and phone calls work best. Video messages can increase engagement. The key is timely, relevant outreach that focuses on the prospect\'s challenges rather than your product features.'
+      question:
+        "What outreach strategies work best in today's sales development environment?",
+      answer:
+        "Multi-channel approaches combining personalized email, LinkedIn messages, and phone calls work best. Video messages can increase engagement. The key is timely, relevant outreach that focuses on the prospect's challenges rather than your product features.",
     },
     {
-      question: 'How can AI enhance sales development processes?',
-      answer: 'AI can help prioritize leads, suggest optimal times for outreach, generate personalized email copy, analyze call transcripts for improvement opportunities, and automate data entry tasks - allowing SDRs to focus on high-value interactions.'
-    }
+      question: "How can AI enhance sales development processes?",
+      answer:
+        "AI can help prioritize leads, suggest optimal times for outreach, generate personalized email copy, analyze call transcripts for improvement opportunities, and automate data entry tasks - allowing SDRs to focus on high-value interactions.",
+    },
   ];
-
 
   return (
     <>
+      <Head>
+        <title>Sales Development & Pipeline Generation - [Your Company Name]</title>
+        <meta
+          name="description"
+          content="Accelerate your sales pipeline with expert sales development strategies. We generate qualified opportunities, enhance outreach, and boost connect rates. Learn more!"
+        />
+        <meta
+          name="keywords"
+          content="sales development, pipeline generation, lead generation, B2B sales, sales outreach, SDR, sales qualified leads, Modigie, sales strategy"
+        />
+        <link rel="canonical" href="[Your Canonical URL]" />
+        {/* Open Graph Tags for Social Media */}
+        <meta property="og:title" content="Sales Development & Pipeline Generation - [Your Company Name]" />
+        <meta property="og:description" content="Accelerate your sales pipeline with expert sales development strategies. We generate qualified opportunities, enhance outreach, and boost connect rates." />
+        <meta property="og:url" content="[Your Canonical URL]" />
+        <meta property="og:image" content="/images/og-sales-development.jpg" /> {/* Replace with a relevant image */}
+        <meta property="og:type" content="website" />
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Sales Development & Pipeline Generation - [Your Company Name]" />
+        <meta name="twitter:description" content="Accelerate your sales pipeline with expert sales development strategies. We generate qualified opportunities, enhance outreach, and boost connect rates." />
+        <meta name="twitter:image" content="/images/twitter-sales-development.jpg" /> {/* Replace with a relevant image */}
+      </Head>
+
       <Upnav />
       <Lownav />
 
@@ -77,7 +118,9 @@ function SalesDevelopment() {
             <div className="bg-[#FFD800] text-black font-bold text-xl rounded-full w-14 h-14 flex items-center justify-center mr-3">
               SD
             </div>
-            <span className="text-white text-2xl font-semibold">sales development</span>
+            <span className="text-white text-2xl font-semibold">
+              sales development
+            </span>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
             Sales development that <br />
@@ -98,16 +141,21 @@ function SalesDevelopment() {
         </h2>
         <div className="border-t border-gray-700 pt-12 flex flex-col md:flex-row gap-12">
           <div className="md:w-1/2">
-            <h3 className="text-[#FFD700] font-bold text-xl mb-4">OUR SOLUTION</h3>
+            <h3 className="text-[#FFD700] font-bold text-xl mb-4">
+              OUR SOLUTION
+            </h3>
           </div>
           <div className="md:w-1/2 text-lg space-y-6">
             <p>
-              Our sales development approach combines data-driven targeting with human-centric outreach to connect you with
-              decision-makers who are ready to have meaningful conversations about your solution.
+              Our sales development approach combines data-driven targeting with
+              human-centric outreach to connect you with decision-makers who are
+              ready to have meaningful conversations about your solution.
             </p>
             <p>
-              With decades of experience building high-performing SDR teams, we've developed methodologies that consistently
-              deliver qualified meetings and accelerate sales cycles for our clients across industries.
+              With decades of experience building high-performing SDR teams,
+              we've developed methodologies that consistently deliver qualified
+              meetings and accelerate sales cycles for our clients across
+              industries.
             </p>
           </div>
         </div>
@@ -119,14 +167,15 @@ function SalesDevelopment() {
           HOW OUR SALES DEVELOPMENT PROCESS WORKS
         </h2>
         <div className="flex justify-center">
-          {/* Using Next.js Image for optimization */}
+          {/* Using Next.js Image for optimization and lazy loading (default behavior) */}
           <Image
             src="/images/flowchart3.png"
             alt="Sales Development Workflow"
-            width={1200} // Set appropriate width
-            height={800} // Set appropriate height
+            width={1200} // Set appropriate width for intrinsic sizing
+            height={800} // Set appropriate height for intrinsic sizing
             layout="responsive" // Make image responsive
             className="w-full max-w-6xl object-contain"
+            priority={false} // Images below the fold should not have priority
           />
         </div>
       </div>
@@ -146,7 +195,8 @@ function SalesDevelopment() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
             >
-              Targeted outreach strategies <br /> tailored to your ideal customers.
+              Targeted outreach strategies <br /> tailored to your ideal
+              customers.
             </motion.h1>
 
             <motion.div
@@ -155,10 +205,14 @@ function SalesDevelopment() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="flex flex-col md:flex-row gap-4 items-start mb-6 p-6"
             >
-              <p className="text-lg md:w-1/3 text-black font-semibold">Our Services</p>
+              <p className="text-lg md:w-1/3 text-black font-semibold">
+                Our Services
+              </p>
               <p className="text-lg md:w-2/3">
-                Our team handles all aspects of sales development, from prospect research and list building to outreach
-                and qualification, through to handoff to your sales team. All so you can focus on closing deals while{" "}
+                Our team handles all aspects of sales development, from prospect
+                research and list building to outreach and qualification,
+                through to handoff to your sales team. All so you can focus on
+                closing deals while{" "}
                 <strong>we keep your pipeline full</strong>.
               </p>
             </motion.div>
@@ -192,7 +246,9 @@ function SalesDevelopment() {
                   className="bg-[#ffea00] p-8 rounded-xl shadow-lg flex-1 min-h-[250px] flex flex-col justify-center"
                 >
                   <div className="p-4 rounded-lg">
-                    <h2 className="font-bold text-xl mb-3 text-gray-800">{service.title}</h2>
+                    <h2 className="font-bold text-xl mb-3 text-gray-800">
+                      {service.title}
+                    </h2>
                     <p className="text-gray-700">{service.content}</p>
                   </div>
                 </motion.div>
@@ -246,8 +302,10 @@ function SalesDevelopment() {
                 Enterprise SaaS Company 3X Pipeline with Our Sales Development
               </h2>
               <p className="text-gray-300 mb-8">
-                By implementing our targeted sales development approach, this SaaS provider went from inconsistent
-                pipeline to reliably generating 50+ qualified opportunities per month, with 35% converting to closed-won deals.
+                By implementing our targeted sales development approach, this
+                SaaS provider went from inconsistent pipeline to reliably
+                generating 50+ qualified opportunities per month, with 35%
+                converting to closed-won deals.
               </p>
               {/* Using Next.js Link for client-side navigation */}
               <Link href="/" passHref>
@@ -277,8 +335,14 @@ function SalesDevelopment() {
                 style={{ marginTop: "-200px", position: "relative", zIndex: 20 }}
               >
                 <div className="w-full h-[700px] aspect-[1/3]">
-                  {/* Using Next.js Image for optimization */}
-                  <Image src="/images/display-ads.webp" alt="Display Ads" fill className="object-cover rounded-xl" />
+                  {/* Using Next.js Image for optimization and lazy loading */}
+                  <Image
+                    src="/images/display-ads.webp"
+                    alt="Display Ads"
+                    fill
+                    className="object-cover rounded-xl"
+                    priority={false} // Images below the fold should not have priority
+                  />
                 </div>
               </motion.div>
             </motion.div>
@@ -295,23 +359,26 @@ function SalesDevelopment() {
               dial mobile data.
             </h2>
             <p className="mb-4 text-lg">
-              In today's competitive landscape, having accurate contact information is critical. Our partnership with
-              Modigie provides <strong>verified mobile numbers</strong> for your prospects, dramatically improving
-              connect rates and sales productivity.
+              In today's competitive landscape, having accurate contact
+              information is critical. Our partnership with Modigie provides{" "}
+              <strong>verified mobile numbers</strong> for your prospects,
+              dramatically improving connect rates and sales productivity.
             </p>
             <p className="text-lg">
-              We enhance your sales development efforts by appending validated mobile numbers to prospect records,
-              giving your team the best chance to start meaningful conversations.
+              We enhance your sales development efforts by appending validated
+              mobile numbers to prospect records, giving your team the best
+              chance to start meaningful conversations.
             </p>
           </div>
           <div className="flex justify-center">
-            {/* Using Next.js Image for optimization */}
+            {/* Using Next.js Image for optimization and lazy loading */}
             <Image
               src="/images/phone.webp"
               alt="Phone"
               width={300} // Set appropriate width
               height={300} // Set appropriate height
               className="rounded-full border-8 border-yellow-300 shadow-lg max-w-[300px] w-full"
+              priority={false} // Images below the fold should not have priority
             />
           </div>
         </div>
@@ -418,7 +485,9 @@ function SalesDevelopment() {
               <ArrowUpRight className="text-black w-5 h-5 md:w-6 md:h-6" />
             </motion.span>
           </Link>
-          <p className="text-white text-2xl sm:text-3xl md:text-4xl mt-2 font-medium">with us</p>
+          <p className="text-white text-2xl sm:text-3xl md:text-4xl mt-2 font-medium">
+            with us
+          </p>
         </motion.div>
       </div>
 

@@ -2,12 +2,19 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"; // Import Image for image optimization
+import Link from "next/link";     // Import Link for internal navigation
+import Head from 'next/head';     // Import Head for SEO
+import dynamic from 'next/dynamic'; // Import dynamic for lazy loading components
 
-import Lownav from "../../components/Lownav";
-import Upnav from "../../components/Upnav";
-import Footer from "../../components/Footer";
+// Dynamically import Lownav and Upnav for lazy loading
+const LazyLoadedLownav = dynamic(() => import('../../components/Lownav'), { ssr: false });
+const DynamicUpnav = dynamic(() => import('../../components/Upnav'), {
+  loading: () => <div className="flex items-center justify-center h-20 bg-gray-800 text-white">Loading navigation...</div>, // Simple loading skeleton
+  ssr: false
+});
+
+const Footer = dynamic(() => import("../../components/Footer"), { ssr: false });
 
 function DisplayAds() {
   const cardVariants = {
@@ -37,15 +44,54 @@ function DisplayAds() {
 
   return (
     <>
-      <Upnav />
-      <Lownav />
+      <Head>
+        <title>High-Performing Display Advertising - Your Company Name</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="description"
+          content="Eliminate wasted ad spend with high-performing display advertising. Drive engagement and accelerate lead conversion with targeted campaigns."
+        />
+        <meta
+          name="keywords"
+          content="display advertising, B2B display ads, digital advertising, lead generation, ad spend optimization, targeted advertising"
+        />
+        <link rel="canonical" href="[Your Canonical URL]" /> {/* IMPORTANT: Replace with the actual URL of this page */}
+
+        {/* Open Graph Meta Tags for Social Media Sharing */}
+        <meta property="og:title" content="High-Performing Display Advertising - Your Company Name" />
+        <meta
+          property="og:description"
+          content="Drive engagement and accelerate lead conversion with our high-performing display advertising solutions."
+        />
+        <meta property="og:image" content="/images/display-ads-og.jpg" /> {/* Replace with a suitable OG image */}
+        <meta property="og:url" content="[Your Canonical URL]" /> {/* IMPORTANT: Replace with the actual URL of this page */}
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="High-Performing Display Advertising - Your Company Name" />
+        <meta
+          name="twitter:description"
+          content="Drive engagement and accelerate lead conversion with our high-performing display advertising solutions."
+        />
+        <meta name="twitter:image" content="/images/display-ads-twitter.jpg" /> {/* Replace with a suitable Twitter image */}
+      </Head>
+
+      <DynamicUpnav />
+      <LazyLoadedLownav />
 
       {/* Hero Section */}
-      <div
-        className="relative w-full h-screen mt-36 bg-cover bg-center flex items-center justify-start px-8 md:px-16 lg:px-32"
-        style={{ backgroundImage: "url('/images/herodis.jpg')" }}
-      >
-        <div className="text-left text-white max-w-4xl">
+      <div className="relative w-full h-screen mt-36 flex items-center justify-start px-8 md:px-16 lg:px-32">
+        <Image
+          src="/images/herodis.jpg"
+          alt="Eliminate wasted ad spend with high performing display advertising"
+          fill // Makes the image fill the parent container
+          priority // Prioritize loading for above-the-fold content
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+        />
+        <div className="text-left text-white max-w-4xl relative z-10">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
             Eliminate wasted ad spend <br />
             with <span className="text-[#ffd800]">high performing</span> <br />
@@ -83,9 +129,10 @@ function DisplayAds() {
         <div className="flex-grow">
           <Image
             src="/images/displayphone.webp"
-            alt="Mobile Engagement"
-            width={800}
-            height={800}
+            alt="Mobile Engagement through Display Ads"
+            width={800} // Actual width of the image
+            height={800} // Actual height of the image
+            loading="lazy" // Lazy load as it might not be in the initial viewport
             className="w-full h-full py-12 max-h-[800px] object-contain"
           />
         </div>
@@ -235,10 +282,11 @@ function DisplayAds() {
               <div className="w-full h-[700px] aspect-[1/3]">
                 <Image
                   src="/images/display-ads.webp"
-                  alt="Display Ads"
-                  width={1200}
-                  height={700}
-                  className="w-full h-full object-cover rounded-xl"
+                  alt="Case study: Cisco Integrated Channel Program"
+                  fill // Use fill to make the image cover its parent
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover rounded-xl"
+                  loading="lazy"
                 />
               </div>
             </motion.div>
@@ -247,19 +295,25 @@ function DisplayAds() {
       </section>
 
       {/* Connect Section */}
-      <div
-        className="w-full h-[300px] md:h-[400px] lg:h-[500px] bg-cover bg-center relative flex items-center justify-center text-center"
-        style={{ backgroundImage: "url('/images/connectus.jpg')" }}
-      >
+      <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] relative flex items-center justify-center text-center">
+        <Image
+          src="/images/connectus.jpg"
+          alt="Connect with us"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          loading="lazy"
+        />
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-white flex flex-col items-center"
+          className="text-white flex flex-col items-center relative z-10" // Added z-10
         >
           <Link
             href="/contact"
             className="flex items-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold group"
+            passHref
           >
             <span className="text-yellow-400">Connect</span>
             <motion.span

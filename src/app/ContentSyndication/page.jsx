@@ -1,11 +1,27 @@
 "use client"; // <
- import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Plus } from "lucide-react";
-import Lownav from "../../components/Lownav"; // Adjust path if necessary
-import Upnav from "../../components/Upnav";   // Adjust path if necessary
-import Footer from "../../components/Footer"; // Adjust path if necessary
 import { useState } from "react";
 import Head from 'next/head'; // Import Head for SEO
+import Link from 'next/link'; // Import Link for internal navigation
+import Image from 'next/image'; // Import Image for image optimization
+import dynamic from 'next/dynamic'; // Import dynamic for lazy loading components
+
+// Define a simple LoadingSkeleton component for dynamic imports
+const LoadingSkeleton = () => (
+  <div className="flex items-center justify-center h-20 bg-gray-800 text-white">
+    Loading navigation...
+  </div>
+);
+
+// Dynamically import Lownav and Upnav for lazy loading
+const LazyLoadedLownav = dynamic(() => import('../../components/Lownav'), { ssr: false }); // Adjust path if necessary
+const DynamicUpnav = dynamic(() => import('../../components/Upnav'), {
+  loading: () => <LoadingSkeleton />,
+  ssr: false
+}); // Adjust path if necessary
+
+const Footer = dynamic(() => import("../../components/Footer"), { ssr: false });
 
 function B2BcontentSyndication() {
   const cardVariants = {
@@ -63,20 +79,85 @@ function B2BcontentSyndication() {
   return (
     <>
       <Head>
-        <title>B2B Content Syndication - Your Company Name</title>
-        <meta name="description" content="Drive audiences, not just leads, with strategic B2B content syndication." />
-        {/* Add more meta tags as needed for SEO */}
+        <title>B2B Content Syndication Services | Your Company Name</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="description"
+          content="Drive qualified B2B leads with our content syndication services. Distribute whitepapers, eBooks & case studies to targeted audiences."
+        />
+        <meta
+          name="keywords"
+          content="B2B content syndication, lead generation, content distribution, B2B marketing, content distribution strategy, B2B lead generation services"
+        />
+        <link rel="canonical" href="[Your Canonical URL]" /> {/* IMPORTANT: Replace with the actual URL of this page */}
+
+        {/* Open Graph Meta Tags for Social Media Sharing */}
+        <meta property="og:title" content="B2B Content Syndication Services | Your Company Name" />
+        <meta
+          property="og:description"
+          content="Drive qualified B2B leads with our targeted content syndication solutions."
+        />
+        <meta property="og:image" content="/images/syndication-og.jpg" /> {/* Replace with a suitable OG image */}
+        <meta property="og:url" content="[Your Canonical URL]" /> {/* IMPORTANT: Replace with the actual URL of this page */}
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="B2B Content Syndication Services | Your Company Name" />
+        <meta
+          name="twitter:description"
+          content="Drive qualified B2B leads with our targeted content syndication solutions."
+        />
+        <meta name="twitter:image" content="/images/syndication-og.jpg" /> {/* Replace with a suitable Twitter image */}
+
+        {/* You can add more specific meta tags here, e.g., for schema markup (JSON-LD) */}
+        {/* Example for FAQPage Schema, uncomment and replace with your data: */}
+        {/*
+        <script type="application/ld+json">
+          {`
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "${faqItems[0].question}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "${faqItems[0].answer}"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "${faqItems[1].question}",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "${faqItems[1].answer}"
+                }
+              }
+              // ... add more FAQ items dynamically
+            ]
+          }
+          `}
+        </script>
+        */}
       </Head>
 
-      <Upnav />
-      <Lownav />
+      <DynamicUpnav />
+      <LazyLoadedLownav />
 
       {/* Hero Section */}
-      <div
-        className="relative w-full min-h-screen mt-24 bg-cover bg-center flex items-center justify-start px-6 sm:px-8 md:px-16 lg:px-32"
-        style={{ backgroundImage: "url('/images/syndication.jpg')" }}
-      >
-        <div className="text-left text-white max-w-4xl">
+      <div className="relative w-full min-h-screen mt-24 bg-cover bg-center flex items-center justify-start px-6 sm:px-8 md:px-16 lg:px-32">
+        <Image
+          src="/images/syndication.jpg"
+          alt="B2B Content Syndication Services"
+          fill
+          priority // Load this image with high priority as it's above the fold
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw" // Optimize for responsive images
+        />
+        <div className="text-left text-white max-w-4xl relative z-10"> {/* Added z-10 to ensure text is above image */}
           <div className="flex items-center mb-6">
             <div className="bg-[#FFD800] text-black font-bold text-xl rounded-full w-14 h-14 flex items-center justify-center mr-3">
               IQ
@@ -102,16 +183,20 @@ function B2BcontentSyndication() {
         </h2>
         <div className="border-t border-gray-700 pt-12 flex flex-col md:flex-row gap-12">
           <div className="md:w-1/2">
-            <h3 className="text-[#FFD700] font-bold text-xl mb-4">OUR SOLUTION</h3>
+            <h3 className="text-[#FFD700] font-bold text-xl mb-4">
+              OUR SOLUTION
+            </h3>
           </div>
           <div className="md:w-1/2 text-lg space-y-6">
             <p>
-              Do more with your content than just share it. We align your content with our already engaged audiences,
-              distributing assets your ideal customers actually want to consume.
+              Do more with your content than just share it. We align your
+              content with our already engaged audiences, distributing assets
+              your ideal customers actually want to consume.
             </p>
             <p>
-              We’ve spent over two decades building and refining our first-party audiences, giving us unparalleled
-              insights and precision targeting that go far beyond generic third-party data.
+              We’ve spent over two decades building and refining our first-party
+              audiences, giving us unparalleled insights and precision targeting
+              that go far beyond generic third-party data.
             </p>
           </div>
         </div>
@@ -123,9 +208,12 @@ function B2BcontentSyndication() {
           HOW IQSYNDICATE WORKS
         </h2>
         <div className="flex justify-center">
-          <img
+          <Image
             src="/images/flowchart.png"
-            alt="IQSyndicate Workflow"
+            alt="IQSyndicate Workflow Process"
+            width={1200} // Provide intrinsic width
+            height={630} // Provide intrinsic height
+            loading="lazy" // Ensures image is lazy-loaded
             className="w-full max-w-6xl object-contain"
           />
         </div>
@@ -146,7 +234,8 @@ function B2BcontentSyndication() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="text-4xl sm:text-5xl font-bold leading-tight mb-6"
             >
-              Strategic content placement <br /> tailored to your unique audience.
+              Strategic content placement <br /> tailored to your unique
+              audience.
             </motion.h1>
 
             <motion.div
@@ -155,11 +244,14 @@ function B2BcontentSyndication() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="flex flex-col md:flex-row gap-4 items-start mb-6 p-6"
             >
-              <p className="text-lg md:w-1/3 text-black font-semibold">Our Services</p>
+              <p className="text-lg md:w-1/3 text-black font-semibold">
+                Our Services
+              </p>
               <p className="text-lg md:w-2/3">
-                Our team handles all aspects, from audience creation to placement and distribution, through to campaign
-                management and quality assurance. All so you can see more revenue from content syndication while{" "}
-                <strong>spending less time on it</strong>.
+                Our team handles all aspects, from audience creation to
+                placement and distribution, through to campaign management and
+                quality assurance. All so you can see more revenue from content
+                syndication while <strong>spending less time on it</strong>.
               </p>
             </motion.div>
 
@@ -192,14 +284,16 @@ function B2BcontentSyndication() {
                   className="bg-[#ffea00] p-8 rounded-xl shadow-lg flex-1 min-h-[250px] flex flex-col justify-center"
                 >
                   <div className="p-4 rounded-lg">
-                    <h2 className="font-bold text-xl mb-3 text-gray-800">{service.title}</h2>
+                    <h2 className="font-bold text-xl mb-3 text-gray-800">
+                      {service.title}
+                    </h2>
                     <p className="text-gray-700">{service.content}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            <a href="/">
+            <Link href="/" passHref> {/* Use Link for internal navigation */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -218,7 +312,7 @@ function B2BcontentSyndication() {
                   I AM READY TO DRIVE REVENUE →
                 </motion.button>
               </motion.div>
-            </a>
+            </Link>
           </motion.div>
         </section>
 
@@ -245,18 +339,19 @@ function B2BcontentSyndication() {
                 Cisco Integrated Channel Program Exceeds Expectations with Kulan
               </h2>
               <p className="text-gray-300 mb-8">
-                With Kulan, Cisco launched a dynamic integrated demand generation strategy combining display
-                advertising, direct-to-decision-maker email, and content syndication to convert buyers and nurture
-                them to a sales-ready stage.
+                With Kulan, Cisco launched a dynamic integrated demand
+                generation strategy combining display advertising,
+                direct-to-decision-maker email, and content syndication to
+                convert buyers and nurture them to a sales-ready stage.
               </p>
-              <a href="/">
+              <Link href="/" passHref> {/* Use Link for internal navigation */}
                 <motion.p
                   whileHover={{ x: 5 }}
                   className="text-2xl text-white font-semibold inline-block cursor-pointer"
                 >
                   READ FULL CASE STUDY →
                 </motion.p>
-              </a>
+              </Link>
             </motion.div>
 
             {/* Image Section */}
@@ -273,10 +368,21 @@ function B2BcontentSyndication() {
                   boxShadow: "0 15px 30px -5px rgba(0, 0, 0, 0.5)",
                 }}
                 className="w-full rounded-xl shadow-xl overflow-hidden relative"
-                style={{ marginTop: "-200px", position: "relative", zIndex: 20 }}
+                style={{
+                  marginTop: "-200px",
+                  position: "relative",
+                  zIndex: 20,
+                }}
               >
                 <div className="w-full h-[700px] aspect-[1/3]">
-                  <img src="/images/display-ads.webp" className="w-full h-full object-cover rounded-xl" alt="Display Ads" />
+                  <Image
+                    src="/images/display-ads.webp"
+                    alt="Display Ads"
+                    fill // Use fill to cover the parent div's dimensions
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Example sizes, adjust as needed
+                    className="object-cover rounded-xl"
+                    loading="lazy"
+                  />
                 </div>
               </motion.div>
             </motion.div>
@@ -289,24 +395,31 @@ function B2BcontentSyndication() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div>
             <h2 className="text-4xl font-bold leading-tight mb-6">
-              Increase call to connect with direct <br className="hidden sm:block" />
+              Increase call to connect with direct{" "}
+              <br className="hidden sm:block" />
               dial mobile data.
             </h2>
             <p className="mb-4 text-lg">
-              In the digital hustle, precise contact info is a revenue game-changer. IQappend nails it with Modigie’s
-              real-time data model and the industry’s <strong>largest active cell phone database</strong>, giving you
+              In the digital hustle, precise contact info is a revenue
+              game-changer. IQappend nails it with Modigie’s real-time data
+              model and the industry’s{" "}
+              <strong>largest active cell phone database</strong>, giving you
               that competitive edge.
             </p>
             <p className="text-lg">
-              Elevating call-to-connection rates, IQappend smoothly blends current mobile contact data into leads from
-              our content syndication services.
+              Elevating call-to-connection rates, IQappend smoothly blends
+              current mobile contact data into leads from our content
+              syndication services.
             </p>
           </div>
           <div className="flex justify-center">
-            <img
+            <Image
               src="/images/phone.webp"
-              alt="Phone"
+              alt="Mobile phone with verified contact data"
+              width={300} // Provide intrinsic width
+              height={300} // Provide intrinsic height
               className="rounded-full border-8 border-yellow-300 shadow-lg max-w-[300px] w-full"
+              loading="lazy"
             />
           </div>
         </div>
@@ -399,9 +512,10 @@ function B2BcontentSyndication() {
           transition={{ duration: 0.8 }}
           className="text-white flex flex-col items-center"
         >
-          <a
+          <Link
             href="/contact"
             className="flex items-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold group"
+            passHref // Ensures the `href` is passed down to the underlying `<a>` tag
           >
             <span className="text-yellow-400">Connect</span>
             <motion.span
@@ -411,8 +525,10 @@ function B2BcontentSyndication() {
             >
               <ArrowUpRight className="text-black w-5 h-5 md:w-6 md:h-6" />
             </motion.span>
-          </a>
-          <p className="text-white text-2xl sm:text-3xl md:text-4xl mt-2 font-medium">with us</p>
+          </Link>
+          <p className="text-white text-2xl sm:text-3xl md:text-4xl mt-2 font-medium">
+            with us
+          </p>
         </motion.div>
       </div>
 
