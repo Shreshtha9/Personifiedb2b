@@ -230,7 +230,7 @@ const LowNav = () => {
                     <ul className={`${isSmallScreen ? (resourcesOpen ? 'max-h-[500px] opacity-100 visible' : 'max-h-0 opacity-0 invisible') : 'absolute left-0 z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100'} bg-white shadow-xl transition-all duration-300 w-[300px] rounded-xl mt-8`}>
                         <div>
                             {[
-                                { name: 'White Paper', link: '#' },
+                                { name: 'White Paper', link: '/Out-Whitepaper/Whitepaper' },
                                 { name: 'Blogs', link: '#' },
                             ].map((item, index) => (
                                 <li key={index} className="px-4 py-3 hover:bg-[#386861] hover:text-white text-lg border-b border-[#e6d9a1] last:border-b-0">

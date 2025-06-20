@@ -1,18 +1,18 @@
 "use client"; // This directive makes the component a Client Component
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image"; // Import Next.js Image component for optimization
 import Link from "next/link"; // Import Next.js Link component for navigation
 import { motion } from "framer-motion";
 import Lownav from "../../components/Lownav";
 import Upnav from "../../components/Upnav";
 import Footer from "../../components/Footer";
-import { 
-  Lightbulb, 
-  BarChart3, 
-  Target, 
-  TrendingUp, 
-  Zap, 
+import {
+  Lightbulb,
+  BarChart3,
+  Target,
+  TrendingUp,
+  Zap,
   Shield,
   Brain,
   Rocket,
@@ -25,8 +25,8 @@ import {
   Heart,
   Briefcase,
   CheckCircle,
-  Star
-} from 'lucide-react';
+  Star,
+} from "lucide-react";
 
 const It = () => {
   const [email, setEmail] = useState("");
@@ -259,7 +259,7 @@ const It = () => {
       title: "Audience Segment 5",
     },
   ];
-   const topics = [
+  const topics = [
     {
       name: "Market Analysis",
       opacity: 1,
@@ -323,11 +323,107 @@ const It = () => {
       weight: "font-medium",
     },
   ];
- 
-  
+
+  const [radii, setRadii] = useState({
+    base: "clamp(7rem, 15vw, 12rem)", // Default for small screens
+    offset: "clamp(8.5rem, 18vw, 14.5rem)", // Default for small screens
+    containerSize: { width: "18rem", height: "18rem" }, // Default container size
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      let newBaseRadius = "clamp(7rem, 15vw, 12rem)";
+      let newOffsetRadius = "clamp(8.5rem, 18vw, 14.5rem)";
+      let newContainerWidth = "18rem";
+      let newContainerHeight = "18rem";
+
+      const width = window.innerWidth;
+
+      // iPad Mini/Air (portrait: 768px, landscape: 1024px)
+      // Nest Hub (1024x600), Nest Hub Max (1280x800)
+      // iPad Pro (1024x1366, 1194x834, 1366x1024)
+      // Asus ZenBook Fold (unfolded ~1920x1080)
+      
+
+      if (width >= 1920) {
+        // Large desktops / Asus ZenBook Fold / entry-level TV screens
+        newBaseRadius = "clamp(18rem, 12vw, 28rem)"; // More space for topics
+        newOffsetRadius = "clamp(20rem, 15vw, 32rem)";
+        newContainerWidth = "56rem"; // Larger container
+        newContainerHeight = "56rem";
+      } else if (width >= 1536) {
+        // 2xl breakpoint, for larger monitors / some iPad Pro landscape
+        newBaseRadius = "clamp(15rem, 12vw, 25rem)";
+        newOffsetRadius = "clamp(17rem, 15vw, 29rem)";
+        newContainerWidth = "48rem";
+        newContainerHeight = "48rem";
+      } else if (width >= 1280) {
+        // xl breakpoint, iPad Pro landscape, Nest Hub Max
+        newBaseRadius = "clamp(12rem, 13vw, 20rem)";
+        newOffsetRadius = "clamp(14rem, 16vw, 24rem)";
+        newContainerWidth = "42rem";
+        newContainerHeight = "42rem";
+      } else if (width >= 1024) {
+        // lg breakpoint, iPad Mini/Air landscape, Nest Hub
+        newBaseRadius = "clamp(10rem, 12vw, 18rem)";
+        newOffsetRadius = "clamp(12rem, 15vw, 22rem)";
+        newContainerWidth = "36rem";
+        newContainerHeight = "36rem";
+      } else if (width >= 768) {
+        // md breakpoint, iPad Mini/Air portrait
+        newBaseRadius = "clamp(8rem, 10vw, 15rem)";
+        newOffsetRadius = "clamp(9.5rem, 13vw, 17.5rem)";
+        newContainerWidth = "32rem";
+        newContainerHeight = "32rem";
+      } else if (width >= 640) {
+        // sm breakpoint
+        newBaseRadius = "clamp(7rem, 15vw, 12rem)";
+        newOffsetRadius = "clamp(8.5rem, 18vw, 14.5rem)";
+        newContainerWidth = "28rem";
+        newContainerHeight = "28rem";
+      }
+      // For anything smaller, the initial clamp values (baseRadius and offsetRadius) will apply.
+
+      setRadii({
+        base: newBaseRadius,
+        offset: newOffsetRadius,
+        containerSize: { width: newContainerWidth, height: newContainerHeight },
+      });
+    };
+
+    // Debounce function to limit how often handleResize is called
+    let timeoutId = null;
+    const debouncedHandleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(handleResize, 100); // Adjust debounce time as needed
+    };
+
+    // Set initial radii on mount
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", debouncedHandleResize);
+
+    // Clean up event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", debouncedHandleResize);
+      clearTimeout(timeoutId);
+    };
+  }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
+
   const icons = [
-    Brain, Rocket, Users, Globe, Database, Settings, 
-    BarChart, Eye, Heart, Briefcase, CheckCircle, Star
+    Brain,
+    Rocket,
+    Users,
+    Globe,
+    Database,
+    Settings,
+    BarChart,
+    Eye,
+    Heart,
+    Briefcase,
+    CheckCircle,
+    Star,
   ];
 
   return (
@@ -680,8 +776,8 @@ const It = () => {
         </section>
 
         {/* Topics Researched Section */}
-      
-<section className="relative bg-[#0E1F1C] text-white py-20 px-4 md:px-8 lg:px-16 overflow-hidden">
+
+        <section className="relative bg-[#0E1F1C] text-white py-20 px-4 md:px-8 lg:px-16 overflow-hidden">
           <div className="container mx-auto relative z-10">
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-center">
               {/* Enhanced Left Content - Interactive Cloud */}
@@ -697,33 +793,41 @@ const It = () => {
                   },
                 }}
               >
-                {/* Central Hub */}
                 {/* Responsive Central Hub */}
                 <motion.div
                   className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-             w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 
-             bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 
-             rounded-full shadow-2xl z-20 flex items-center justify-center"
+                w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 2xl:w-32 2xl:h-32 
+                bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 
+                rounded-full shadow-2xl z-20 flex items-center justify-center"
                   initial={{ scale: 0, rotate: -180 }}
                   whileInView={{ scale: 1, rotate: 0 }}
                   transition={{ duration: 1, ease: "backOut" }}
                   whileHover={{ scale: 1.1 }}
                 >
-                  <Lightbulb className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white" />
+                  <Lightbulb className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-white" />
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-500 animate-pulse opacity-30"></div>
                 </motion.div>
 
-                {/* Orbiting Topic Cards - Properly Organized with Continuous Heartbeat */}
+                {/* Orbiting Topic Cards - Responsive with Dynamic Spacing */}
                 <div className="relative w-full overflow-visible">
                   <div className="relative mx-auto w-full overflow-visible flex justify-center items-center py-8 sm:py-12">
-                    {/* Responsive container with viewport-based sizing */}
-                    <div className="relative w-[20rem] h-[20rem] xs:w-[24rem] xs:h-[24rem] sm:w-[28rem] sm:h-[28rem] md:w-[32rem] md:h-[32rem] lg:w-[36rem] lg:h-[36rem] xl:w-[40rem] xl:h-[40rem] 2xl:w-[48rem] 2xl:h-[48rem]">
+                    {/* Dynamically set container size based on state */}
+                    <div
+                      className="relative"
+                      style={{
+                        width: radii.containerSize.width,
+                        height: radii.containerSize.height,
+                      }}
+                    >
                       {topics.map((topic, index) => {
                         const Icon = icons[index % icons.length];
-                        // Adjust radius based on screen size
-                        const radius = `calc(min(20vw, 12rem) + ${
-                          index % 2 === 0 ? "0px" : "2rem"
-                        })`;
+
+                        // Use the dynamically calculated radii from state
+                        const baseRadius = radii.base;
+                        const offsetRadius = radii.offset;
+                        const radius =
+                          index % 2 === 0 ? baseRadius : offsetRadius;
+
                         const angle = (index * 360) / topics.length;
                         const x = `calc(cos(${angle}deg) * ${radius})`;
                         const y = `calc(sin(${angle}deg) * ${radius})`;
@@ -733,7 +837,6 @@ const It = () => {
                             key={index}
                             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                             style={{
-                              // Use CSS variables for dynamic positioning
                               "--x": x,
                               "--y": y,
                               "--radius": radius,
@@ -758,16 +861,16 @@ const It = () => {
                                 delay: index * 0.15,
                               },
                             }}
-                            animate={{ scale: [1, 1.12, 1] }}
+                            animate={{ scale: [1, 1.08, 1] }}
                             whileHover={{
-                              scale: 1.2,
+                              scale: 1.15,
                               zIndex: 30,
                               boxShadow:
                                 "0 20px 40px rgba(255, 255, 255, 0.15)",
                             }}
                           >
                             <div className="relative group cursor-pointer">
-                              {/* Connection Line - now responsive */}
+                              {/* Responsive Connection Line */}
                               <motion.div
                                 className="absolute top-1/2 left-1/2 w-px bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent origin-left transform -translate-y-1/2"
                                 style={{
@@ -784,13 +887,16 @@ const It = () => {
                                 }}
                               />
 
-                              {/* Topic Card - made more compact on small screens */}
+                              {/* Responsive Topic Card with Dynamic Text Sizing */}
                               <motion.div
-                                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-2 sm:p-3 shadow-xl group-hover:bg-white/20 group-hover:border-yellow-400/50 transition-all duration-300"
+                                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl sm:rounded-2xl 
+                                    p-1.5 xs:p-2 sm:p-2.5 md:p-3 lg:p-3.5 
+                                    shadow-xl group-hover:bg-white/20 group-hover:border-yellow-400/50 
+                                    transition-all duration-300 min-w-fit"
                                 animate={{
                                   boxShadow: [
                                     "0 0 0 0 rgba(251, 191, 36, 0)",
-                                    "0 0 0 8px rgba(251, 191, 36, 0.1)",
+                                    "0 0 0 6px rgba(251, 191, 36, 0.08)",
                                     "0 0 0 0 rgba(251, 191, 36, 0)",
                                   ],
                                   borderColor: [
@@ -807,9 +913,10 @@ const It = () => {
                                   delay: index * 0.2,
                                 }}
                               >
-                                <div className="flex items-center space-x-1 sm:space-x-2">
+                                <div className="flex items-center justify-center space-x-1 xs:space-x-1.5 sm:space-x-2">
+                                  {/* Responsive Icon */}
                                   <motion.div
-                                    className="text-yellow-300 group-hover:text-yellow-200 transition-colors"
+                                    className="text-yellow-300 group-hover:text-yellow-200 transition-colors flex-shrink-0"
                                     animate={{
                                       color: [
                                         "rgb(253, 224, 71)",
@@ -825,19 +932,30 @@ const It = () => {
                                       delay: index * 0.1,
                                     }}
                                   >
-                                    <Icon className="w-3 h-3 sm:w-4 sm:h-4" />
+                                    <Icon className="w-2.5 h-2.5 xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 lg:w-4.5 lg:h-4.5" />
                                   </motion.div>
-                                  <div
-                                    className={`text-sm sm:text-base ${topic.weight} text-white group-hover:text-yellow-100 transition-colors whitespace-nowrap`}
-                                  >
-                                    {topic.name}
+
+                                  {/* Responsive Text with Dynamic Sizing and Truncation */}
+                                  <div className="flex-1 min-w-0 text-center">
+                                    <div
+                                      className={`text-xs xs:text-xs sm:text-sm md:text-sm lg:text-base xl:text-base 
+                                            ${topic.weight} text-white group-hover:text-yellow-100 
+                                            transition-colors leading-tight whitespace-nowrap 
+                                            overflow-hidden text-ellipsis 
+                                            max-w-[4rem] xs:max-w-[5rem] sm:max-w-[6rem] 
+                                            md:max-w-[7rem] lg:max-w-[8rem] xl:max-w-[9rem] 
+                                            2xl:max-w-[10rem]`}
+                                      title={topic.name} // Tooltip for full text on hover
+                                    >
+                                      {topic.name}
+                                    </div>
                                   </div>
                                 </div>
 
-                                {/* Continuous Glow */}
+                                {/* Continuous Glow Effect */}
                                 <motion.div
-                                  className="absolute inset-0 rounded-2xl bg-gradient-to-r from-yellow-400/0 via-yellow-400/20 to-yellow-400/0"
-                                  animate={{ opacity: [0, 0.3, 0] }}
+                                  className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-yellow-400/0 via-yellow-400/15 to-yellow-400/0"
+                                  animate={{ opacity: [0, 0.25, 0] }}
                                   transition={{
                                     duration: 3,
                                     repeat: Infinity,
@@ -852,18 +970,23 @@ const It = () => {
                         );
                       })}
 
-                      {/* Responsive Pulse Rings */}
+                      {/* Responsive Pulse Rings with Better Scaling */}
                       {[...Array(3)].map((_, i) => (
                         <motion.div
                           key={i}
                           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-yellow-400/20 rounded-full"
                           style={{
-                            width: `calc(${8 + i * 4}rem)`,
-                            height: `calc(${8 + i * 4}rem)`,
+                            // Dynamically scale pulse rings based on the overall container size
+                            width: `calc(${radii.containerSize.width} * ${
+                              0.4 + i * 0.2
+                            })`, // Adjust factors as needed
+                            height: `calc(${radii.containerSize.height} * ${
+                              0.4 + i * 0.2
+                            })`, // Adjust factors as needed
                           }}
                           animate={{
-                            scale: [1, 1.1, 1],
-                            opacity: [0.3, 0.1, 0.3],
+                            scale: [1, 1.08, 1],
+                            opacity: [0.25, 0.08, 0.25],
                           }}
                           transition={{
                             duration: 3,
@@ -877,25 +1000,27 @@ const It = () => {
                 </div>
               </motion.div>
 
-              {/* Enhanced Right Content */}
+              {/* Enhanced Right Content with Responsive Typography */}
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="space-y-8"
+                className="space-y-6 sm:space-y-8"
               >
-                {/* Stats Badge */}
+                {/* Responsive Stats Badge */}
                 <motion.div
-                  className="inline-flex items-center bg-gradient-to-r from-yellow-400/20 to-orange-400/20 backdrop-blur-md border border-yellow-400/30 rounded-full px-6 py-3"
+                  className="inline-flex items-center bg-gradient-to-r from-yellow-400/20 to-orange-400/20 
+                        backdrop-blur-md border border-yellow-400/30 rounded-full 
+                        px-4 py-2 sm:px-6 sm:py-3"
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                  <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-2 rounded-full mr-4">
-                    <BarChart3 className="h-5 w-5 text-black" />
+                  <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-1.5 sm:p-2 rounded-full mr-3 sm:mr-4">
+                    <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 text-black" />
                   </div>
                   <motion.span
-                    className="text-3xl font-bold bg-yellow-400 bg-clip-text text-transparent"
+                    className="text-xl sm:text-2xl lg:text-3xl font-bold bg-yellow-400 bg-clip-text text-transparent"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.5 }}
@@ -904,10 +1029,10 @@ const It = () => {
                   </motion.span>
                 </motion.div>
 
-                {/* Main Heading */}
-                <div className="space-y-4">
+                {/* Responsive Main Heading */}
+                <div className="space-y-3 sm:space-y-4">
                   <motion.h2
-                    className="text-3xl lg:text-4xl font-bold leading-none"
+                    className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold leading-none"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
@@ -921,23 +1046,23 @@ const It = () => {
                     </span>
                   </motion.h2>
 
-                  {/* Accent Line */}
+                  {/* Responsive Accent Line */}
                   <motion.div
-                    className="w-24 h-1 bg-yellow-400 rounded-full"
+                    className="w-16 sm:w-20 lg:w-24 h-0.5 sm:h-1 bg-yellow-400 rounded-full"
                     initial={{ width: 0 }}
-                    whileInView={{ width: 96 }}
+                    whileInView={{ width: "clamp(4rem, 8vw, 6rem)" }}
                     transition={{ duration: 1, delay: 0.6 }}
                   />
                 </div>
 
-                {/* Enhanced Description */}
+                {/* Enhanced Description with Responsive Text */}
                 <motion.div
-                  className="space-y-6"
+                  className="space-y-4 sm:space-y-6"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.7 }}
                 >
-                  <p className="text-lg text-white/90 leading-relaxed">
+                  <p className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed">
                     We analyze{" "}
                     <strong className="text-yellow-400">
                       millions of engagement signals
@@ -946,14 +1071,14 @@ const It = () => {
                     critical business needs of Finance teams.
                   </p>
 
-                  <p className="text-lg text-white/70 leading-relaxed">
+                  <p className="text-sm sm:text-base lg:text-lg text-white/70 leading-relaxed">
                     Insights we leverage to help you run{" "}
                     <strong className="text-white">better campaigns</strong>{" "}
                     with precision and impact.
                   </p>
 
-                  {/* Feature Points */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                  {/* Responsive Feature Points */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-6 sm:mt-8">
                     {[
                       { icon: Target, text: "Precision Targeting" },
                       { icon: TrendingUp, text: "Trend Analysis" },
@@ -962,16 +1087,18 @@ const It = () => {
                     ].map((feature, index) => (
                       <motion.div
                         key={index}
-                        className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-yellow-400/30 transition-all duration-300"
+                        className="flex items-center space-x-2 sm:space-x-3 p-2.5 sm:p-3 rounded-lg sm:rounded-xl 
+                                    bg-white/5 border border-white/10 hover:bg-white/10 hover:border-yellow-400/30 
+                                    transition-all duration-300"
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
                         whileHover={{ scale: 1.02 }}
                       >
-                        <div className="text-yellow-400">
-                          <feature.icon className="w-5 h-5" />
+                        <div className="text-yellow-400 flex-shrink-0">
+                          <feature.icon className="w-4 h-4 sm:w-5 sm:h-5" />
                         </div>
-                        <span className="text-white/80 font-medium">
+                        <span className="text-sm sm:text-base text-white/80 font-medium">
                           {feature.text}
                         </span>
                       </motion.div>
